@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "html-generator"
+    }
+  },
+  "defaultProject": "html-generator",
+  "cli": {
+    "analytics": false
+  }
 }
