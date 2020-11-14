@@ -1,5 +1,44 @@
 <app-header></app-header>
 <app-dashboard>
     Dash Board Here.
+    <div>
+      <form [formGroup]="sampleForm">
+        <!--Below objectFormIndex will be the Form Groups. Remember Our nested Form Group names are indexes-->
+        <div *ngFor="let objectFormIndex of objectKeys(sampleForm.controls)">
+          {{objectFormIndex}}
+          <br>
+          <!--Below: Tell Angular that you want to do something on a nested form group. Use formGroupName directive-->
+          <div [formGroupName]="objectFormIndex">
+          ############################################################################
+          <br>
+          <label class="title-space">Object Id:</label><input type="text" formControlName="objectId">
+          <label class="title-space">Project Id:</label><input type="text" formControlName="projectId">
+          <br>
+          #############################################################################
+          <!--Below: Since we want to print content of Form Array we will have to tell Angular that-->
+          <!--We tell that using directive FormArrayName as shown below. Fields is the name of the Form Array-->
+          <div formArrayName="fields">
+            <div *ngFor="let fieldGroup of sampleForm.get(objectFormIndex).get('fields').value; let i = index">
+              <!--This may look very weird but when we want to iterate through a Form Array we always have to proceed by taking index.
+              Therefore here we are writing [formGroupName]="i". In our case the Form Array consists of Form Groups. But even if we have
+              only form Controls inside a Form Array, we follow the same thing. That is take indexes-->
+              <div [formGroupName]="i">
+                <label class="space">keyName :</label><input type="text" formControlName='keyName'>
+                <label class="space">DropDownValue :</label>
+                <select formControlName="dropdownValue">
+                  <option value="date">Date</option>
+                  <option value="varchar">String</option>
+                  <option value="int">Integer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        ---------------------------------------------------------------------------------------------------
+        <br>
+        </div>
+      </form>
+    </div>
+
 </app-dashboard>
 <app-footer></app-footer>
